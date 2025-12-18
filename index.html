@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shakti Pithas Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="background-overlay"></div>
+    <div class="app-container">
+        <!-- Start Screen -->
+        <section id="start-screen" class="screen active">
+            <div class="content-box">
+                <h1>Shakti Pithas</h1>
+                <p class="subtitle">Match the Shakti Pithas with their Locations.</p>
+
+                <div class="input-group">
+                    <input type="text" id="username-input" placeholder="Enter your name" autocomplete="off">
+                </div>
+
+                <div class="button-group">
+                    <button id="start-btn" class="btn primary">Start Quiz</button>
+                    <button id="history-btn" class="btn secondary">View History</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- History Screen -->
+        <section id="history-screen" class="screen hidden">
+            <div class="content-box history-content">
+                <h2>Score History</h2>
+                <div class="history-list-container">
+                    <table id="history-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Name</th>
+                                <th>Score</th>
+                                <th>Improvement</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-list">
+                            <!-- History items injected here -->
+                        </tbody>
+                    </table>
+                    <p id="no-history-msg" class="hidden">No history found. Play a game to see your scores!</p>
+                </div>
+                <div class="button-group">
+                    <button id="back-home-btn" class="btn secondary">Back to Menu</button>
+                    <button id="clear-history-btn" class="btn secondary"
+                        style="border-color: rgba(232, 65, 24, 0.5); color: rgba(232, 65, 24, 0.8);">Clear
+                        History</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz Screen (Matching Game) -->
+        <section id="quiz-screen" class="screen hidden">
+            <div class="quiz-header">
+                <div class="stats-group">
+                    <div class="score-board">
+                        <span>Matches: <span id="matches-count">0</span>/10</span>
+                    </div>
+                    <div class="timer-board">
+                        <span>Moves: <span id="moves-count">0</span></span>
+                    </div>
+                </div>
+                <div class="controls-group">
+                    <button id="pause-btn" class="btn-icon" title="Pause">⏸️</button>
+                    <button id="exit-btn" class="btn-icon" title="Exit">❌</button>
+                </div>
+            </div>
+
+            <div class="matching-container">
+                <div class="column" id="mountains-column">
+                    <h3>Shakti Pithas</h3>
+                    <div class="list-container" id="mountains-list">
+                        <!-- Mountain items injected here -->
+                    </div>
+                </div>
+                <div class="column" id="locations-column">
+                    <h3>Places</h3>
+                    <div class="list-container" id="locations-list">
+                        <!-- Location items injected here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pause Overlay -->
+            <div id="pause-overlay" class="pause-overlay hidden">
+                <div class="pause-content">
+                    <h2>Game Paused</h2>
+                    <button id="resume-btn" class="btn primary">Resume</button>
+                </div>
+            </div>
+
+            <div id="feedback" class="feedback hidden"></div>
+        </section>
+
+        <!-- Result Screen -->
+        <section id="result-screen" class="screen hidden">
+            <div class="content-box">
+                <h2>Quiz Completed!</h2>
+                <div class="final-score-container">
+                    <span class="score-label">Your Score</span>
+                    <span id="final-score" class="score-value">0</span>
+                    <span class="score-total">/ 100</span>
+                </div>
+                <p id="result-message">Great job!</p>
+                <button id="restart-btn" class="btn primary">Play Again</button>
+            </div>
+        </section>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
