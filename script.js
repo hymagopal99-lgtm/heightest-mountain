@@ -1,14 +1,14 @@
-const shaktiPithas = [
-    { id: 1, name: "Kamakhya", place: "Assam" },
-    { id: 2, name: "Varanasi", place: "Uttar Pradesh" },
-    { id: 3, name: "Kalighat", place: "Kolkata" },
-    { id: 4, name: "Jwala Ji", place: "Himachal Pradesh" },
-    { id: 5, name: "Chamundeshwari", place: "Mysore" },
-    { id: 6, name: "Amarnath", place: "Jammu & Kashmir" },
-    { id: 7, name: "Kanyakumari", place: "Tamil Nadu" },
-    { id: 8, name: "Hinglaj", place: "Pakistan" },
-    { id: 9, name: "Sugandha", place: "Bangladesh" },
-    { id: 10, name: "Mahalaxmi", place: "Kolhapur" }
+const mountains = [
+    { id: 1, name: "Mount Everest", height: "8,848 m", location: "Nepal / China" },
+    { id: 2, name: "Aconcagua", height: "6,961 m", location: "Argentina" },
+    { id: 3, name: "Denali", height: "6,190 m", location: "United States" },
+    { id: 4, name: "Mount Kilimanjaro", height: "5,895 m", location: "Tanzania" },
+    { id: 5, name: "Mount Elbrus", height: "5,642 m", location: "Russia" },
+    { id: 6, name: "Mount Vinson", height: "4,892 m", location: "Antarctica" },
+    { id: 7, name: "Puncak Jaya", height: "4,884 m", location: "Indonesia" },
+    { id: 8, name: "Mont Blanc", height: "4,807 m", location: "France / Italy" },
+    { id: 9, name: "Mount Fuji", height: "3,776 m", location: "Japan" },
+    { id: 10, name: "Mount Cook", height: "3,724 m", location: "New Zealand" }
 ];
 
 const startScreen = document.getElementById('start-screen');
@@ -23,8 +23,8 @@ const backHomeBtn = document.getElementById('back-home-btn');
 const clearHistoryBtn = document.getElementById('clear-history-btn');
 const usernameInput = document.getElementById('username-input');
 
-const pithasList = document.getElementById('mountains-list');
-const placesList = document.getElementById('locations-list');
+const mountainsList = document.getElementById('mountains-list');
+const locationsList = document.getElementById('locations-list');
 const historyList = document.getElementById('history-list');
 const noHistoryMsg = document.getElementById('no-history-msg');
 const matchesCountEl = document.getElementById('matches-count');
@@ -34,8 +34,8 @@ const resultMessageEl = document.getElementById('result-message');
 
 let matches = 0;
 let moves = 0;
-let selectedPitha = null;
-let selectedPlace = null;
+let selectedMountain = null;
+let selectedLocation = null;
 let currentUser = '';
 let quizHistory = JSON.parse(localStorage.getItem('peakKnowledgeHistory')) || [];
 
@@ -48,8 +48,8 @@ function startQuiz() {
     currentUser = name;
     matches = 0;
     moves = 0;
-    selectedPitha = null;
-    selectedPlace = null;
+    selectedMountain = null;
+    selectedLocation = null;
     updateStats();
 
     renderLists();
@@ -57,30 +57,30 @@ function startQuiz() {
 }
 
 function renderLists() {
-    pithasList.innerHTML = '';
-    placesList.innerHTML = '';
+    mountainsList.innerHTML = '';
+    locationsList.innerHTML = '';
 
-    // Render Pithas (Left Side)
-    shaktiPithas.forEach(m => {
+    // Render Mountains (Left Side - Ordered by rank/height usually, but let's keep array order)
+    mountains.forEach(m => {
         const el = document.createElement('div');
         el.classList.add('match-item');
         el.dataset.id = m.id;
-        el.dataset.type = 'pitha';
+        el.dataset.type = 'mountain';
         el.innerHTML = `<span class="badge">${m.id}</span> ${m.name}`;
-        el.onclick = () => handleSelection(el, 'pitha');
-        pithasList.appendChild(el);
+        el.onclick = () => handleSelection(el, 'mountain');
+        mountainsList.appendChild(el);
     });
 
-    // Render Places (Right Side - Shuffled)
-    const shuffledPlaces = [...shaktiPithas].sort(() => Math.random() - 0.5);
-    shuffledPlaces.forEach(m => {
+    // Render Locations (Right Side - Shuffled)
+    const shuffledLocations = [...mountains].sort(() => Math.random() - 0.5);
+    shuffledLocations.forEach(m => {
         const el = document.createElement('div');
         el.classList.add('match-item');
-        el.dataset.id = m.id; // Correct ID to match with pitha
-        el.dataset.type = 'place';
-        el.textContent = m.place;
-        el.onclick = () => handleSelection(el, 'place');
-        placesList.appendChild(el);
+        el.dataset.id = m.id; // Correct ID to match with mountain
+        el.dataset.type = 'location';
+        el.textContent = m.location;
+        el.onclick = () => handleSelection(el, 'location');
+        locationsList.appendChild(el);
     });
 }
 
@@ -88,26 +88,26 @@ function handleSelection(el, type) {
     // Ignore if already matched or disabled
     if (el.classList.contains('matched')) return;
 
-    // Handle Pitha Selection
-    if (type === 'pitha') {
-        if (selectedPitha) {
-            selectedPitha.classList.remove('selected');
+    // Handle Mountain Selection
+    if (type === 'mountain') {
+        if (selectedMountain) {
+            selectedMountain.classList.remove('selected');
         }
-        selectedPitha = el;
+        selectedMountain = el;
         el.classList.add('selected');
     }
 
-    // Handle Place Selection
-    if (type === 'place') {
-        if (selectedPlace) {
-            selectedPlace.classList.remove('selected');
+    // Handle Location Selection
+    if (type === 'location') {
+        if (selectedLocation) {
+            selectedLocation.classList.remove('selected');
         }
-        selectedPlace = el;
+        selectedLocation = el;
         el.classList.add('selected');
     }
 
     // Check for match attempt
-    if (selectedPitha && selectedPlace) {
+    if (selectedMountain && selectedLocation) {
         moves++;
         updateStats();
         checkMatch();
@@ -115,49 +115,49 @@ function handleSelection(el, type) {
 }
 
 function checkMatch() {
-    const pithaId = selectedPitha.dataset.id;
-    const placeId = selectedPlace.dataset.id;
+    const mountainId = selectedMountain.dataset.id;
+    const locationId = selectedLocation.dataset.id;
 
-    if (pithaId === placeId) {
+    if (mountainId === locationId) {
         // Correct Match
-        selectedPitha.classList.remove('selected');
-        selectedPlace.classList.remove('selected');
+        selectedMountain.classList.remove('selected');
+        selectedLocation.classList.remove('selected');
 
-        selectedPitha.classList.add('matched');
-        selectedPlace.classList.add('matched');
+        selectedMountain.classList.add('matched');
+        selectedLocation.classList.add('matched');
 
         matches++;
         updateStats();
 
-        selectedPitha = null;
-        selectedPlace = null;
+        selectedMountain = null;
+        selectedLocation = null;
 
-        if (matches === shaktiPithas.length) {
+        if (matches === mountains.length) {
             setTimeout(endQuiz, 500);
         }
     } else {
         // Wrong Match
-        selectedPitha.classList.add('error');
-        selectedPlace.classList.add('error');
+        selectedMountain.classList.add('error');
+        selectedLocation.classList.add('error');
 
         // Disable interaction temporarily
-        const tempP = selectedPitha;
-        const tempL = selectedPlace;
+        const tempM = selectedMountain;
+        const tempL = selectedLocation;
 
-        selectedPitha = null;
-        selectedPlace = null;
+        selectedMountain = null;
+        selectedLocation = null;
 
         setTimeout(() => {
             // Only remove 'selected' if it's not the currently selected item (user re-selected it)
-            if (tempP) {
-                tempP.classList.remove('error');
-                if (tempP !== selectedPitha) {
-                    tempP.classList.remove('selected');
+            if (tempM) {
+                tempM.classList.remove('error');
+                if (tempM !== selectedMountain) {
+                    tempM.classList.remove('selected');
                 }
             }
             if (tempL) {
                 tempL.classList.remove('error');
-                if (tempL !== selectedPlace) {
+                if (tempL !== selectedLocation) {
                     tempL.classList.remove('selected');
                 }
             }
