@@ -31,6 +31,11 @@ const matchesCountEl = document.getElementById('matches-count');
 const movesCountEl = document.getElementById('moves-count');
 const finalScoreEl = document.getElementById('final-score');
 const resultMessageEl = document.getElementById('result-message');
+const viewCountEl = document.getElementById('view-count');
+const likeBtn = document.getElementById('like-btn');
+const dislikeBtn = document.getElementById('dislike-btn');
+const resultActions = document.getElementById('result-actions');
+const feedbackSection = document.getElementById('feedback-section');
 
 let matches = 0;
 let moves = 0;
@@ -38,6 +43,12 @@ let selectedMountain = null;
 let selectedLocation = null;
 let currentUser = '';
 let quizHistory = JSON.parse(localStorage.getItem('peakKnowledgeHistory')) || [];
+let pageViews = parseInt(localStorage.getItem('peakKnowledgeViews')) || 0;
+
+// Initialize Views
+pageViews++;
+localStorage.setItem('peakKnowledgeViews', pageViews);
+if (viewCountEl) viewCountEl.textContent = pageViews;
 
 function startQuiz() {
     const name = usernameInput.value.trim();
@@ -51,6 +62,9 @@ function startQuiz() {
     selectedMountain = null;
     selectedLocation = null;
     updateStats();
+
+    // Reset Feedback UI
+    resetFeedbackUI();
 
     renderLists();
     showScreen(quizScreen);
@@ -321,3 +335,46 @@ restartBtn.addEventListener('click', startQuiz);
 historyBtn.addEventListener('click', showHistory);
 backHomeBtn.addEventListener('click', goHome);
 clearHistoryBtn.addEventListener('click', clearHistory);
+
+// Feedback Handlers
+function handleFeedback(isLike) {
+    // Visual feedback
+    if (isLike) {
+        likeBtn.classList.add('selected');
+        dislikeBtn.style.opacity = '0.5';
+    } else {
+        dislikeBtn.classList.add('selected');
+        likeBtn.style.opacity = '0.5';
+    }
+
+    // Disable buttons
+    likeBtn.disabled = true;
+    dislikeBtn.disabled = true;
+
+    // Show Thank You message
+    const prompt = feedbackSection.querySelector('.feedback-prompt');
+    if (prompt) prompt.textContent = "Thank you for your feedback!";
+
+    // Reveal Action Buttons (Play Again)
+    resultActions.classList.add('reveal');
+}
+
+function resetFeedbackUI() {
+    // Reset buttons
+    likeBtn.classList.remove('selected');
+    dislikeBtn.classList.remove('selected');
+    likeBtn.style.opacity = '1';
+    dislikeBtn.style.opacity = '1';
+    likeBtn.disabled = false;
+    dislikeBtn.disabled = false;
+
+    // Reset Prompt
+    const prompt = feedbackSection.querySelector('.feedback-prompt');
+    if (prompt) prompt.textContent = "Rate this game to continue";
+
+    // Hide actions again
+    resultActions.classList.remove('reveal');
+}
+
+likeBtn.addEventListener('click', () => handleFeedback(true));
+dislikeBtn.addEventListener('click', () => handleFeedback(false));

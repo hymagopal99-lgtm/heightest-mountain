@@ -1,0 +1,14 @@
+<svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="60" height="60" rx="12" fill="url(#grad1)"/>
+    <!-- Mountain Peak -->
+    <path d="M30 15L10 50H50L30 15Z" fill="#E0E0E0"/>
+    <path d="M30 15L18 50H42L30 15Z" fill="#FFFFFF"/>
+    <!-- Snow Cap -->
+    <path d="M30 15L25 24H35L30 15Z" fill="white"/>
+    <defs>
+        <linearGradient id="grad1" x1="0" y1="0" x2="60" y2="60" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#6C63FF"/>
+            <stop offset="1" stop-color="#00D2D3"/>
+        </linearGradient>
+    </defs>
+</svg>

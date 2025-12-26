@@ -9,6 +9,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://highest-mountains.netlify.app/">
+    <meta property="og:title" content="Peak Knowledge - Mountain Quiz">
+    <meta property="og:description"
+        content="Test your knowledge of the world's tallest mountains. Can you match them all?">
+    <meta property="og:image" content="https://highest-mountains.netlify.app/thumbnail.svg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://highest-mountains.netlify.app/">
+    <meta property="twitter:title" content="Peak Knowledge - Mountain Quiz">
+    <meta property="twitter:description"
+        content="Test your knowledge of the world's tallest mountains. Can you match them all?">
+    <meta property="twitter:image" content="https://highest-mountains.netlify.app/thumbnail.svg">
 </head>
 
 <body>
@@ -18,6 +34,9 @@
         <section id="start-screen" class="screen active">
             <div class="content-box">
                 <h1>Peak Knowledge</h1>
+                <div class="view-counter-container">
+                    <span class="view-icon">👁️</span> <span id="view-count">0</span> Views
+                </div>
                 <p class="subtitle">Test your knowledge of the world's tallest mountains.</p>
 
                 <div class="input-group">
@@ -103,7 +122,6 @@
             <div id="feedback" class="feedback hidden"></div>
         </section>
 
-        <!-- Result Screen -->
         <section id="result-screen" class="screen hidden">
             <div class="content-box">
                 <h2>Quiz Completed!</h2>
@@ -113,7 +131,23 @@
                     <span class="score-total">/ 100</span>
                 </div>
                 <p id="result-message">Great job!</p>
-                <button id="restart-btn" class="btn primary">Play Again</button>
+
+                <!-- Mandatory Feedback Section -->
+                <div id="feedback-section" class="feedback-section">
+                    <p class="feedback-prompt">Rate this game to continue</p>
+                    <div class="feedback-buttons">
+                        <button id="like-btn" class="btn-feedback" title="I liked it">
+                            <span class="icon">👍</span> Like
+                        </button>
+                        <button id="dislike-btn" class="btn-feedback" title="I didn't like it">
+                            <span class="icon">👎</span> Dislike
+                        </button>
+                    </div>
+                </div>
+
+                <div id="result-actions" class="hidden-actions">
+                    <button id="restart-btn" class="btn primary">Play Again</button>
+                </div>
             </div>
         </section>
     </div>

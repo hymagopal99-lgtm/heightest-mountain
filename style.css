@@ -112,6 +112,7 @@ h1 {
     font-weight: 800;
     margin-bottom: 0.5rem;
     background: linear-gradient(135deg, #fff 0%, #a5a5a5 100%);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -624,4 +625,108 @@ h1 {
         font-size: 1rem;
         margin-bottom: 1.5rem;
     }
+}
+
+/* View Counter */
+.view-counter-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(5px);
+}
+
+.view-icon {
+    font-size: 1rem;
+}
+
+/* Feedback Section */
+.feedback-section {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.feedback-prompt {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.feedback-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.btn-feedback {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    border-radius: 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: var(--font-main);
+}
+
+.btn-feedback:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.btn-feedback.selected {
+    border-color: var(--primary-color);
+    background: rgba(108, 99, 255, 0.2);
+    box-shadow: 0 0 15px rgba(108, 99, 255, 0.3);
+    pointer-events: none;
+}
+
+.btn-feedback .icon {
+    font-size: 1.2rem;
+}
+
+/* Hidden Actions */
+.hidden-actions {
+    opacity: 0;
+    pointer-events: none;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+    margin-top: 0;
+}
+
+.hidden-actions.reveal {
+    opacity: 1;
+    pointer-events: all;
+    height: auto;
+    margin-top: 1.5rem;
 }
